@@ -59,33 +59,30 @@ export default defineContentScript({
       }
     }
 
-    // Listen for messages from the popup
     window.addEventListener("message", (event) => {
       if (
         event.data.type === "FROM_POPUP" &&
         event.data.action === "insertReply"
       ) {
-        console.log("Inserting reply");
         const messageInput = document.querySelector(
           ".msg-form__contenteditable"
-        ) as HTMLDivElement;
-
+        );
         if (messageInput) {
-          // Create a new paragraph element
           const newParagraph = document.createElement("p");
           newParagraph.textContent = event.data.reply;
-
-          // Clear existing content and append the new paragraph
           messageInput.innerHTML = "";
           messageInput.appendChild(newParagraph);
-
-          // Dispatch input event to trigger any listeners
           const inputEvent = new Event("input", { bubbles: true });
           messageInput.dispatchEvent(inputEvent);
-
-          console.log("Reply inserted successfully");
         } else {
           console.error("LinkedIn message input not found!");
+        }
+      }
+      // Handle the CLOSE_POPUP action to remove the popup
+      else if (event.data.type === "CLOSE_POPUP") {
+        const popupContainer = document.getElementById("react-popup-container");
+        if (popupContainer) {
+          popupContainer.remove();
         }
       }
     });
