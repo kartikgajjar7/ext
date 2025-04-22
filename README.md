@@ -1,7 +1,5 @@
-<<<<<<< HEAD
-# ext
-=======
-# WXT + React
 
-This template should help get you started developing with React in WXT.
->>>>>>> 3cfe0ea (Initial commit)
+
+
+https://github.com/user-attachments/assets/68fe3d92-eb73-4a13-9b1a-68cb7b1c2a09
+
